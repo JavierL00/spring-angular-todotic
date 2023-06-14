@@ -96,4 +96,16 @@ public class BookController {
     void delete(@PathVariable Integer id) {
         bookList.removeIf(l -> l.getId().equals(id));
     }
+
+    /**
+     * Busca libros por su título.
+     */
+    @GetMapping("/search/{title}")
+    @ResponseStatus(HttpStatus.OK)
+    List<Book> search(@PathVariable String title) {
+        return bookList
+                .stream()
+                .filter(l -> l.getTitle().toLowerCase().contains(title.toLowerCase()))
+                .toList();
+    }
 }
